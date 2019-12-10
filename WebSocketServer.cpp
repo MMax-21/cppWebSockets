@@ -48,7 +48,7 @@ static int callback_main(   struct lws *wsi,
             fd = lws_get_socket_fd( wsi );
             while( !self->connections[fd]->buffer.empty( ) )
             {
-                const char * message = self->connections[fd]->buffer.front( );
+                const char * message = self->connections[fd]->buffer.front( ).c_str( );
                 int msgLen = strlen(message);
                 int charsSent = lws_write( wsi, (unsigned char *)message, msgLen, LWS_WRITE_TEXT );
                 if( charsSent < msgLen )
@@ -164,8 +164,8 @@ void WebSocketServer::onErrorWrapper( int socketID, const string& message )
 
 void WebSocketServer::send( int socketID, string data )
 {
-    // Push this onto the buffer. It will be written out when the socket is writable.
-    this->connections[socketID]->buffer.push_back( data.c_str() );
+    this->connections[socketID]->buffer.push_back( data );
+
 }
 
 void WebSocketServer::broadcast(string data )
