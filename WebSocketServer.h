@@ -36,7 +36,7 @@ public:
     // Represents a client connection
     struct Connection
     {
-        list<const char*>       buffer;     // Ordered list of pending messages to flush out when socket is writable
+        list<std::string>       buffer;     // Ordered list of pending messages to flush out when socket is writable
         map<string,string> keyValueMap;
         time_t             createTime;
     };
